@@ -8,8 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         //create a variable called myListView which links to the listView in the Activity
         ListView myListView = (ListView)findViewById(R.id.listViewId);
 
-        ArrayList<String> myCountries = new ArrayList<String>();
+        final ArrayList<String> myCountries = new ArrayList<String>();
 
         myCountries.add("Ireland");
         myCountries.add("Japan");
@@ -37,8 +39,25 @@ public class MainActivity extends AppCompatActivity {
         //put the above items in the listview by using an ArrayAdapter
         //ArrayAdapter converts arraylist format into a listview format
         //I'm gonna give it the array list i'm creating it from, format, and context that i'm creating it in
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myCountries);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.listviewrow, R.id.textViewId, myCountries);
         myListView.setAdapter(arrayAdapter);
+
+
+        //add onClickListener
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //AdapterView is the listView that has been tapped
+                //view represents that thing that was actually tapped. i.e. in my case the row
+                //poition: the number of the row that was tapped
+                //id is the same as position
+
+                Toast.makeText(getApplicationContext(), "Hello " + myCountries.get(position), Toast.LENGTH_LONG).show();
+
+
+            }
+        });
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
