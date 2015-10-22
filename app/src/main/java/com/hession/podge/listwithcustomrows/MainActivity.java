@@ -8,8 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +22,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //create a variable called myListView which links to the listView in the Activity
+        ListView myListView = (ListView)findViewById(R.id.listViewId);
+
+        ArrayList<String> myCountries = new ArrayList<String>();
+
+        myCountries.add("Ireland");
+        myCountries.add("Japan");
+        myCountries.add("UK");
+        myCountries.add("US");
+        myCountries.add("Australia");
+
+        //put the above items in the listview by using an ArrayAdapter
+        //ArrayAdapter converts arraylist format into a listview format
+        //I'm gonna give it the array list i'm creating it from, format, and context that i'm creating it in
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myCountries);
+        myListView.setAdapter(arrayAdapter);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
